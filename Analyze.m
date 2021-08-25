@@ -33,5 +33,30 @@ textData(idx) = [];
 fig = figure;
 wordcloud(textData);
 
-saveas(fig,'wordcloud.png')
+%% output page
+
+tree = htmlTree(code);
+htmltitletext = string(findElement(tree,"title"));
+htmltitletext = extractBetween(htmltitletext,'>',' | ');
+htmltitletext = replace(htmltitletext,' ','_');
+todaydatetime = string(datetime('today','Format','yyyy-MM-dd'));
+
+pagefilename = todaydatetime + '-' + htmltitletext + '.md';
+imagefilename = todaydatetime + '-' + htmltitletext + '.png';
+
+frontmatter = ["---" + newline +...
+'layout: post'+ newline +...
+'title:  "Welcome to Jekyll!"'+ newline +...
+'---'];
+
+pagecontent = [frontmatter + newline +...
+    "TESTMATLAB"];
+
+fileID = fopen("./docs/_posts/" + pagefilename,'w');
+fprintf(fileID,'%s',pagecontent);
+fclose(fileID);
+
+saveas(fig,"./docs/_posts/" + imagefilename)
 % _Copyright 2018 The MathWorks, Inc._
+
+
