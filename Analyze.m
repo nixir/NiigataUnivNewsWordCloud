@@ -5,6 +5,8 @@ close all;
 clear;
 clc;
 
+
+
 %% Analyze Japanese Text Data
 
 url = "https://www.niigata-u.ac.jp/news/2021/92693/";
@@ -42,7 +44,9 @@ htmltitletext = replace(htmltitletext,' ','_');
 todaydatetime = string(datetime('today','Format','yyyy-MM-dd'));
 
 pagefilename = todaydatetime + '-' + htmltitletext + '.md';
-imagefilename = todaydatetime + '-' + htmltitletext + '.png';
+imagehash = hashcalc(htmltitletext);
+imagefilename = imagehash + '.png';
+
 
 frontmatter = ["---" + newline +...
 'layout: post'+ newline +...
@@ -50,13 +54,25 @@ frontmatter = ["---" + newline +...
 '---'];
 
 pagecontent = [frontmatter + newline +...
-    "TESTMATLAB"];
+    "TESTMATLAB ![wordcloud](" + "{{ site.baseurl }}/assets/" + imagefilename + ")"];
 
 fileID = fopen("./docs/_posts/" + pagefilename,'w');
 fprintf(fileID,'%s',pagecontent);
 fclose(fileID);
 
-saveas(fig,"./docs/_posts/" + imagefilename)
+saveas(fig,"./docs/assets/" + imagefilename)
 % _Copyright 2018 The MathWorks, Inc._
 
+% Import HASH calculation package
 
+function out = hashcalc(in)
+%https://jp.mathworks.com/matlabcentral/answers/45323-how-to-calculate-hash-sum-of-a-string-using-java
+import java.security.*;
+import java.math.*;
+testname = char(strjoin(string(uint32(char(in))),''));
+
+md = MessageDigest.getInstance('MD5');
+hash = md.digest(double(testname));
+bi = BigInteger(1, hash);
+out = string(bi.toString(16));
+end
