@@ -4,27 +4,10 @@ version: 2.1
 orbs:
   # Declare a dependency on the welcome-orb
   welcome: circleci/welcome-orb@0.4.1
-
 # Orchestrate or schedule a set of jobs
-
-  matlab: mathworks/matlab@0.4.0
-# Orchestrate or schedule a set of jobs
-jobs:
-  example-job:
-    docker:
-      # replace with your preferred image
-      - image: cimg/base:stable
-    steps:
-      - matlab/run-command:
-          command: Newscheck 
-
 workflows:
   # Name the workflow "welcome"
   welcome:
     # Run the welcome/run job in its own container
     jobs:
       - welcome/run
-
-  example-workflow:
-    jobs:
-      - example-job
