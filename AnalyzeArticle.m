@@ -11,24 +11,6 @@ function AnalyzeArticle(url)
 % url = "https://www.niigata-u.ac.jp/news/2021/92693/";
 options = weboptions('CharacterEncoding','UTF-8');
 code = webread(url,options);
-%% 
-% Extract the text data from the HTML using |extractHTMLText|. Split the text 
-% by |newline| characters.
-
-textData = extractHTMLText(code);
-textData = string(split(textData,newline));
-
-%% 
-% Remove the empty lines of text.
-
-idx = textData == "";
-textData(idx) = [];
-
-%% 
-% Visualize the text data in a word cloud.
-
-fig = figure;
-wordcloud(textData);
 
 %% output page
 
@@ -70,6 +52,25 @@ pagecontent = [frontmatter + newline +...
 fileID = fopen("./docs/_posts/" + pagefilename,'w');
 fprintf(fileID,'%s',pagecontent);
 fclose(fileID);
+
+%% 
+% Extract the text data from the HTML using |extractHTMLText|. Split the text 
+% by |newline| characters.
+
+textData = extractHTMLText(code);
+textData = string(split(textData,newline));
+
+%% 
+% Remove the empty lines of text.
+
+idx_emptyline = textData == "";
+textData(idx_emptyline) = [];
+
+%% 
+% Visualize the text data in a word cloud.
+
+fig = figure;
+wordcloud(textData);
 
 saveas(fig,"./docs/assets/" + imagefilename)
 close;
