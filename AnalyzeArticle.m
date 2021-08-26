@@ -11,24 +11,6 @@ function AnalyzeArticle(url)
 % url = "https://www.niigata-u.ac.jp/news/2021/92693/";
 options = weboptions('CharacterEncoding','UTF-8');
 code = webread(url,options);
-%% 
-% Extract the text data from the HTML using |extractHTMLText|. Split the text 
-% by |newline| characters.
-
-textData = extractHTMLText(code);
-textData = string(split(textData,newline));
-
-%% 
-% Remove the empty lines of text.
-
-idx = textData == "";
-textData(idx) = [];
-
-%% 
-% Visualize the text data in a word cloud.
-
-fig = figure;
-wordcloud(textData);
 
 %% output page
 
@@ -43,12 +25,19 @@ if all(size(newsdatetime) == [0 1])
     datepattern = digitsPattern(4)+lettersPattern(1,2)+digitsPattern(1,2)+lettersPattern(1,2)+digitsPattern(1,2);
     newsdatetime = extract(htmltitletext,datepattern);
     newsdatetime = string(datetime(newsdatetime,'InputFormat','yyyy年MM月dd','Format','yyyy-MM-dd'));
-
 end
+
+disp(newsdatetime)
+disp(htmltitletext)
+
+if all(size(newsdatetime) == [0 1])
+    disp("↑Cannot find date. Skip......")
+    return;
+end
+
 pagefilename = newsdatetime + '-' + htmltitletext + '.md';
 imagehash = hashcalc(htmltitletext);
 imagefilename = imagehash + '.png';
-
 
 frontmatter = ["---" + newline +...
 "layout: post"+ newline +...
@@ -63,6 +52,25 @@ pagecontent = [frontmatter + newline +...
 fileID = fopen("./docs/_posts/" + pagefilename,'w');
 fprintf(fileID,'%s',pagecontent);
 fclose(fileID);
+
+%% 
+% Extract the text data from the HTML using |extractHTMLText|. Split the text 
+% by |newline| characters.
+
+textData = extractHTMLText(code);
+textData = string(split(textData,newline));
+
+%% 
+% Remove the empty lines of text.
+
+idx_emptyline = textData == "";
+textData(idx_emptyline) = [];
+
+%% 
+% Visualize the text data in a word cloud.
+
+fig = figure;
+wordcloud(textData);
 
 saveas(fig,"./docs/assets/" + imagefilename)
 close;
