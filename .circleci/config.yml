@@ -13,3 +13,10 @@ jobs:
       - matlab/install
       - matlab/run-command:
           command: Newscheck 
+      
+      - run : git config user.email "50483168+nixir@users.noreply.github.com"
+      - run : git config user.name "nixir"
+
+      - run : git add ./docs/*
+      - run : git commit -a -m "[ci skip]"
+      - run : git push
