@@ -15,7 +15,7 @@ jobs:
       - matlab/install
       - matlab/run-command:
           command: Newscheck 
-      - run : od -vAn --width=4 -tu4 -N4 </dev/urandom > ./docs/_posts/testpage2.md
+#      - run : od -vAn --width=4 -tu4 -N4 </dev/urandom > ./docs/_posts/testpage2.md
       - run : git config user.email "50483168+nixir@users.noreply.github.com"
       - run : git config user.name "nixir"
 
@@ -30,9 +30,8 @@ jobs:
 
 workflows:
   version: 2
-  normal_test_workflow:
+  normal_push_workflow:
     jobs:
-      - build
   nightly_workflow:
     triggers:
       - schedule:
