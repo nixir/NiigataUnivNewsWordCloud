@@ -22,5 +22,5 @@ htmlnewslink = string(htmlnewslink);
 % for i = 1:length(htmlnewslink)
 for i = 1:1
     %AnalyzeArticle(htmlnewslink(i));
-    !echo 111111 > ./docs/_posts/testpage
+    !echo MATLABTEST > ./docs/_posts/testpage
 end
