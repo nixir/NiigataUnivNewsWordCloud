@@ -19,8 +19,7 @@ htmlnewslink = htmlnewslink(contains(htmlnewslink,"www.niigata-u.ac.jp"));%Avoid
 
 htmlnewslink = string(htmlnewslink);
 
-% for i = 1:length(htmlnewslink)
-for i = 1:1
-    %AnalyzeArticle(htmlnewslink(i));
-    !echo MATLABTEST > ./docs/_posts/testpage
+for i = 1:length(htmlnewslink)
+    AnalyzeArticle(htmlnewslink(i));
+    %!echo MATLABTEST > ./docs/_posts/testpage
 end
