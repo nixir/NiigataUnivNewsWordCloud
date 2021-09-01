@@ -23,7 +23,23 @@ jobs:
       - run : git add .
       - run : git status
 
-      - run : git commit -a -m "[ci skip]"
+      - run : git commit -a -m "CI autogen [ci skip]"
       - run : git status
 
       - run : git push origin master
+
+workflows:
+  version: 2
+  normal_test_workflow:
+    jobs:
+      - build
+  nightly_workflow:
+    triggers:
+      - schedule:
+          cron: "0 15 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - build
