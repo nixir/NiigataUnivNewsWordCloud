@@ -22,7 +22,7 @@ jobs:
       - run : sed --version
 
       - run : cat ./docs/_config.yml
-      - run : cat ./docs/_config.yml|sed -e '/description/{n;d;}'|
+      - run : cat ./docs/_config.yml|sed -e '/description/{n;d;}'
       - run : cat ./docs/_config.yml|sed -e '/description/{n;d;}'|sed -e "/description/a \  Last Update@ $(date -u)"
 
       - run : cat ./docs/_config.yml|sed -e '/description/{n;d;}'|sed -e "/description/a \  Last Update@ $(date -u)" > ./docs/_config.yml
