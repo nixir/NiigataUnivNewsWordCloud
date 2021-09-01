@@ -7,8 +7,8 @@ orbs:
 jobs:
   build:
     machine:
-      image: 'ubuntu-1604:201903-01'
-    resource_class: small
+      image: 'ubuntu-2004:202107-02'
+#    resource_class: small
 
     steps:
       - checkout
@@ -19,7 +19,11 @@ jobs:
       - run : git config user.email "50483168+nixir@users.noreply.github.com"
       - run : git config user.name "nixir"
 
+      - run : git status
       - run : git add .
+      - run : git status
+
       - run : git commit -a -m "[ci skip]"
       - run : git status
+
       - run : git push origin master
