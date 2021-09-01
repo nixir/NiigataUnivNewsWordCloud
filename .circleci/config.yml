@@ -17,6 +17,7 @@ jobs:
       - run : git config user.email "50483168+nixir@users.noreply.github.com"
       - run : git config user.name "nixir"
 
-      - run : git add ./docs/*
+      - run : git add ./docs/
       - run : git commit -a -m "[ci skip]"
+      - run : git status
       - run : git push origin master
