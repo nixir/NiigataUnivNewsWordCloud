@@ -19,6 +19,7 @@ htmlnewslink = htmlnewslink(contains(htmlnewslink,"www.niigata-u.ac.jp"));%Avoid
 
 htmlnewslink = string(htmlnewslink);
 
-for i = 1:length(htmlnewslink)
+#for i = 1:length(htmlnewslink)
+for i = 1:1
     AnalyzeArticle(htmlnewslink(i));
 end
