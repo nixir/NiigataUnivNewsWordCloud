@@ -1,14 +1,7 @@
 function AnalyzeArticle(url)
-% Analyze Japanese Text Data
+%% Analyze Japanese Text Data
 % https://jp.mathworks.com/help/textanalytics/ug/analyze-japanese-text.html
 
-% close all;
-% clear;
-% clc;
-
-%% Analyze Japanese Text Data
-
-% url = "https://www.niigata-u.ac.jp/news/2021/92693/";
 options = weboptions('CharacterEncoding','UTF-8');
 code = webread(url,options);
 
@@ -18,7 +11,6 @@ tree = htmlTree(code);
 htmltitletext = string(findElement(tree,"title"));
 htmltitletext = extractBetween(htmltitletext,'>',' | ');
 htmltitletext = replace(htmltitletext,' ','_');
-% todaydatetime = string(datetime('today','Format','yyyy-MM-dd'));
 newsdatetime = string(datetime(strtrim(extractBetween(string(findElement(tree,'article')),'<DIV id="news_day">','日')),'InputFormat','yyyy年MM月dd','Format','yyyy-MM-dd'));
 
 if all(size(newsdatetime) == [0 1])
@@ -74,7 +66,6 @@ wordcloud(textData);
 
 saveas(fig,"./docs/assets/" + imagefilename)
 close;
-% _Copyright 2018 The MathWorks, Inc._
 
 
 %% Hash calculation function
