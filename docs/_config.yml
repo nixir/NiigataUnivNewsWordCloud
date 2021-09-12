@@ -21,7 +21,7 @@
 title: NiigataUnivNewsWordCloud
 #mail: @nixir
 description: >- # this means to ignore newlines until "baseurl:"
-  Last Update@ Sat 11 Sep 2021 03:09:14 PM UTC
+  Last Update@ Sun 12 Sep 2021 03:07:50 PM UTC
 baseurl: "/NiigataUnivNewsWordCloud/" # the subpath of your site, e.g. /blog
 url: "https://nixir.github.io/NiigataUnivNewsWordCloud/" # the base hostname & protocol for your site, e.g. http://example.com
 #twitter_username: jekyllrb
